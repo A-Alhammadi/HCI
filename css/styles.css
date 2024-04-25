@@ -1,1 +1,62 @@
-
+/* Basic styles for the to-do list (default theme) */
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+  }
+  
+  header {
+    background-color: #f0f0f0;
+    padding: 1em 0;
+    text-align: center;
+  }
+  
+  .add-task, 
+  .task-list {
+    padding: 1em;
+    margin-bottom: 20px;
+  }
+  
+  input[type="text"],
+  input[type="date"],
+  select,
+  button {
+    padding: 0.5em;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #task-list li {
+    margin-bottom: 10px;
+  }
+  
+  #task-list li.completed {
+    text-decoration: line-through;
+  }
+  
+  /* High-contrast theme styles */
+  body.high-contrast {
+    background-color: #222;
+    color: white;
+  }
+  
+  body.high-contrast header {
+    background-color: #333;
+  }
+  
+  body.high-contrast input[type="text"],
+  body.high-contrast input[type="date"],
+  body.high-contrast select,
+  body.high-contrast button {
+    background-color: #444;
+    color: white;
+    border-color: white;
+  }
+  
+  /* Add more specific styles as needed */
