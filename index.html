@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessible To-Do List</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>My To-Do List</h1>
+        <button id="theme-toggle">Toggle High Contrast</button>
+        <!-- Accessibility options (high contrast, font choice) add here -->
+    </header>
+
+    <main>
+        <section class="add-task">
+            <h2>Add New Task</h2>
+            <input type="text" id="new-task-input" placeholder="Enter task description">
+
+            <!-- Category Select -->
+            <label for="category-select">Category:</label>
+            <select id="category-select">
+                <option value="Work">Work</option>
+                <option value="Personal">Personal</option>
+                <option value="Home">Home</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Health">Health</option>
+                <option value="Finance">Finance</option>
+                <option value="Education">Education</option>
+                <option value="Travel">Travel</option>
+                <option value="Social">Social</option>
+                <option value="Projects">Projects</option>
+                <option value="Errands">Errands</option>
+                <option value="Reading">Reading</option>
+                <option value="Movies/TV">Movies/TV</option>
+                <option value="Learning">Learning</option>
+            </select>
+
+            <!-- Deadline Input -->
+            <label for="deadline-input">Deadline:</label>
+            <input type="date" id="deadline-input">
+
+            <!-- Priority Select -->
+            <label for="priority-select">Priority:</label>
+            <select id="priority-select">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+
+            <button id="add-task-button">Add Task</button>
+        </section>
+
+        <section class="task-list">
+            <h2>My Tasks</h2>
+            <ul id="task-list">
+                <!-- Task items will be added dynamically here using JavaScript -->
+            </ul>
+        </section>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
