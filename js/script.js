@@ -11,6 +11,16 @@ toggleButton.addEventListener("click", function() {
   document.body.classList.toggle("high-contrast");
 });
 
+// Function to format date to YYYY-MM-DD
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const options = { timeZone: 'UTC' }; // Set time zone to UTC
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 // Task Storage (using an array)
 let tasks = [];
 
@@ -34,8 +44,8 @@ loadTasks();
 function addTask() {
   const taskDescription = taskInput.value;
   const category = categorySelect.value;
-  const deadline = deadlineInput.value;
   const priority = prioritySelect.value;
+  const deadline = formatDate(deadlineInput.value);
 
   // Create task item element
   const taskItem = document.createElement("li");
@@ -102,7 +112,7 @@ function displayTodaysTasks() {
   todayTaskList.innerHTML = ""; // Clear existing tasks
 
   tasks.forEach(task => {
-    if (task.deadline === today) {
+    if (formatDate(task.deadline) === today) {
       // Create task item element (similar to addTask() but without input fields)
       const taskItem = document.createElement("li");
       const label = document.createElement("label");
