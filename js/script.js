@@ -14,10 +14,10 @@ toggleButton.addEventListener("click", function() {
 // Function to format date to YYYY-MM-DD
 function formatDate(dateString) {
   const date = new Date(dateString);
-  const options = { timeZone: 'UTC' }; // Set time zone to UTC
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+  const utcDate = new Date(date.toUTCString().slice(0, -4)); // Remove timezone offset
+  const year = utcDate.getFullYear();
+  const month = String(utcDate.getMonth() + 1).padStart(2, '0');
+  const day = String(utcDate.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
 }
 
@@ -37,8 +37,51 @@ function loadTasks() {
   }
 }
 
+// Function to display tasks from local storage
+function displayTasks() {
+  taskList.innerHTML = ""; // Clear existing tasks
+
+  tasks.forEach(task => {
+    // Create task item element (similar to addTask() but without input fields)
+    const taskItem = document.createElement("li");
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = task.completed || false; // Set checked state if task is completed
+    checkbox.addEventListener("change", function() {
+      task.completed = this.checked;
+      saveTasks();
+      displayTasks(); // Refresh the task list
+    });
+    const label = document.createElement("label");
+    label.textContent = task.description;
+
+    // Create spans for category, deadline, and priority
+    const categorySpan = document.createElement("span");
+    categorySpan.textContent = ` [${task.category}] `;
+    const deadlineSpan = document.createElement("span");
+    deadlineSpan.textContent = ` (Deadline: ${task.deadline}) `;
+    const prioritySpan = document.createElement("span");
+    prioritySpan.textContent = ` Priority: ${task.priority}`;
+
+    // Append elements to task item
+    taskItem.appendChild(checkbox);
+    taskItem.appendChild(label);
+    taskItem.appendChild(categorySpan);
+    taskItem.appendChild(deadlineSpan);
+    taskItem.appendChild(prioritySpan);
+
+    // Set style for completed tasks
+    if (task.completed) {
+      taskItem.style.textDecoration = "line-through";
+    }
+
+    taskList.appendChild(taskItem);
+  });
+}
+
 // Load tasks on page load
 loadTasks();
+displayTasks();
 
 // Function to add a new task
 function addTask() {
@@ -53,13 +96,6 @@ function addTask() {
   // Create checkbox and label
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
-  checkbox.addEventListener("change", function () {
-    if (this.checked) {
-      taskItem.style.textDecoration = "line-through";
-    } else {
-      taskItem.style.textDecoration = "none";
-    }
-  });
   const label = document.createElement("label");
   label.textContent = taskDescription;
 
@@ -80,6 +116,16 @@ function addTask() {
 
   // Append task item to task list
   taskList.appendChild(taskItem);
+
+  displayTasks();
+  //event listener after the checkbox is in the DOM
+  checkbox.addEventListener("change", function () {
+    if (this.checked) {
+      taskItem.style.textDecoration = "line-through";
+    } else {
+      taskItem.style.textDecoration = "none";
+    }
+  });
 
   // Store task data in an object
   const task = {
@@ -106,17 +152,18 @@ addTaskButton.addEventListener("click", addTask);
 
 // Function to filter and display tasks due today on "Today" page
 function displayTodaysTasks() {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = formatDate(new Date()); // Get today's date in YYYY-MM-DD format
   const todayTaskList = document.getElementById("today-task-list");
-
   todayTaskList.innerHTML = ""; // Clear existing tasks
 
   tasks.forEach(task => {
-    if (formatDate(task.deadline) === today) {
-      // Create task item element (similar to addTask() but without input fields)
+    if (task.deadline === today) {
+      // Create task item element (similar to displayTasks() but without checkbox)
       const taskItem = document.createElement("li");
       const label = document.createElement("label");
       label.textContent = task.description;
+
+      // Create spans for category and priority
       const categorySpan = document.createElement("span");
       categorySpan.textContent = ` [${task.category}] `;
       const prioritySpan = document.createElement("span");
