@@ -4,6 +4,8 @@ const deadlineInput = document.getElementById("deadline-input");
 const prioritySelect = document.getElementById("priority-select");
 const addTaskButton = document.getElementById("add-task-button");
 const taskList = document.getElementById("task-list");
+const todayTaskList = document.getElementById("today-task-list");
+
 
 // Theme Toggle Functionality
 const toggleButton = document.getElementById("theme-toggle");
@@ -179,7 +181,38 @@ function displayTodaysTasks() {
   });
 }
 
+function displayTomorrowsTasks() {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1); // Add one day to get tomorrow's date
+  const tomorrowDate = formatDate(tomorrow); // Format as YYYY-MM-DD
+  const tomorrowTaskList = document.getElementById("today-task-list"); // Assuming same list ID
+  tomorrowTaskList.innerHTML = ""; // Clear existing tasks
+
+  tasks.forEach(task => {
+    if (task.deadline === tomorrowDate) {
+      // Create task item element (similar to displayTasks() but without checkbox)
+      const taskItem = document.createElement("li");
+      const label = document.createElement("label");
+      label.textContent = task.description;
+
+      // Create spans for category and priority
+      const categorySpan = document.createElement("span");
+      categorySpan.textContent = ` [${task.category}] `;
+      const prioritySpan = document.createElement("span");
+      prioritySpan.textContent = ` Priority: ${task.priority}`;
+
+      // Append elements to task item
+      taskItem.appendChild(label);
+      taskItem.appendChild(categorySpan);
+      taskItem.appendChild(prioritySpan);
+
+      tomorrowTaskList.appendChild(taskItem);
+    }
+  });
+}
+
 // Check if on "Today" page and call displayTodaysTasks() if so
 if (window.location.pathname.endsWith("today.html")) {
   displayTodaysTasks();
+  console.log("dabababababababababa");
 }
