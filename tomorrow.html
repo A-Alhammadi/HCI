@@ -3,29 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Today's Tasks</title>
+  <title>Tomorrow's Tasks</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <header>
-    <h1>Today</h1>
+    <h1>Tomorrow</h1>
     <p>
       <span id="current-date"></span>
     </p>
-    <button id="theme-toggle">Toggle High Contrast</button>  </header>
+    <button id="theme-toggle">Toggle High Contrast</button> 
+  </header>
   <main>
     <section class="task-list">
-      <h2>Tasks Due Today</h2>
+      <h2>Tasks Due Tomorrow</h2>
       <ul id="today-task-list">
-        </ul>
+        
+      </ul>
     </section>
   </main>
   <footer>
     <a href="index.html">Back to Main List</a> 
+    
+    <button id="theme-toggle">Toggle High Contrast</button>
+    
   </footer>
-  <script src="js/script.js"></script> 
-  <script>
-    displayTodaysTasks(); // Add this line to call the function directly
-  </script>
+  <script src="js/script.js"></script>
+  <script>displayTomorrowsTasks();</script> 
 </body>
 </html>
