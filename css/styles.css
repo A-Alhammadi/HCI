@@ -59,4 +59,49 @@ body {
     border-color: white;
   }
   
-  /* Add more specific styles as needed */
+/* Style for "Today's Tasks" button */
+#todays-tasks-button {
+  position: absolute; /* Position relative to the header */
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  padding: 1em 2em; /* Adjust size as needed */
+  font-size: 1.2em; /* Adjust font size as needed */
+  background-color: #007bff; /* Example color */
+  color: white;
+  border: none;
+  border-radius: 5px; /* Add a slight border radius */
+  cursor: pointer;
+}
+
+/* Styles for today.html page (to make it similar to index.html) */
+/* You can copy most of the existing styles from the top of your CSS file */
+body {
+  font-family: sans-serif;
+  line-height: 1.6;
+}
+
+header {
+  background-color: #f0f0f0;
+  padding: 1em 0;
+  text-align: center;
+}
+
+/* Styles for the task list on today.html */
+#today-task-list {
+  padding: 1em;
+}
+
+#today-task-list li {
+  margin-bottom: 10px;
+}
+
+/* Styles for high-contrast theme on today.html */
+/* Copy the high-contrast styles and update selectors as needed */
+body.high-contrast {
+  background-color: #222;
+  color: white;
+}
+
+body.high-contrast header {
+  background-color: #333;
+}
