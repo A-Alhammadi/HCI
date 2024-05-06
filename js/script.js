@@ -41,7 +41,6 @@ function loadTasks() {
 }
 
 // Function to display tasks from local storage
-// Function to display tasks from local storage
 function displayTasks() {
   taskList.innerHTML = ""; // Clear existing tasks
 
@@ -65,6 +64,11 @@ function displayTasks() {
     });
     const label = document.createElement("label");
     label.textContent = task.description;
+    if (task.completed) {
+      label.style.textDecoration = "line-through";
+    } else {
+      label.style.textDecoration = "none";
+    }
 
     // Create spans for category, deadline, and priority
     const categorySpan = document.createElement("span");
@@ -81,15 +85,21 @@ function displayTasks() {
     taskItem.appendChild(deadlineSpan);
     taskItem.appendChild(prioritySpan);
 
-    // Set style for completed tasks
-    if (task.completed) {
-      taskItem.style.textDecoration = "line-through";
-    }
+    // Optional: Add a span for showing "DONE"
+    const doneStatus = document.createElement("span");
+    doneStatus.className = "done-status";
+    doneStatus.textContent = "DONE";
+    doneStatus.style.color = "red";
+    doneStatus.style.fontSize = "1.2em";  // Larger font size
+    doneStatus.style.fontWeight = "bold";  // Bold text
+    doneStatus.style.display = task.completed ? "inline" : "none";  // Only show if completed
+    doneStatus.style.textDecoration = "none";  // Ensure no line-through
+    doneStatus.style.marginLeft = "20px";  // Space it farther to the right
+    taskItem.appendChild(doneStatus);  // Append the "DONE" status element
 
     taskList.appendChild(taskItem);
   });
 }
-
 
 // Load tasks on page load
 loadTasks();
