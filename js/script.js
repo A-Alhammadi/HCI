@@ -1,3 +1,4 @@
+
 const taskInput = document.getElementById("new-task-input");
 const categorySelect = document.getElementById("category-select");
 const deadlineInput = document.getElementById("deadline-input");
@@ -40,10 +41,18 @@ function loadTasks() {
 }
 
 // Function to display tasks from local storage
+// Function to display tasks from local storage
 function displayTasks() {
   taskList.innerHTML = ""; // Clear existing tasks
 
   tasks.forEach(task => {
+    // Create a new Date object for the task's deadline and subtract a day
+    const displayDate = new Date(task.deadline);
+    displayDate.setDate(displayDate.getDate() - 1);
+
+    // Format the display date to YYYY-MM-DD
+    const displayDeadline = formatDate(displayDate);
+
     // Create task item element (similar to addTask() but without input fields)
     const taskItem = document.createElement("li");
     const checkbox = document.createElement("input");
@@ -61,7 +70,7 @@ function displayTasks() {
     const categorySpan = document.createElement("span");
     categorySpan.textContent = ` [${task.category}] `;
     const deadlineSpan = document.createElement("span");
-    deadlineSpan.textContent = ` (Deadline: ${task.deadline}) `;
+    deadlineSpan.textContent = ` (Deadline: ${displayDeadline}) `;
     const prioritySpan = document.createElement("span");
     prioritySpan.textContent = ` Priority: ${task.priority}`;
 
@@ -81,6 +90,7 @@ function displayTasks() {
   });
 }
 
+
 // Load tasks on page load
 loadTasks();
 displayTasks();
@@ -90,7 +100,10 @@ function addTask() {
   const taskDescription = taskInput.value;
   const category = categorySelect.value;
   const priority = prioritySelect.value;
-  const deadline = formatDate(deadlineInput.value);
+  // Create a new Date object for the input date, subtract a day, then format it
+  const inputDate = new Date(deadlineInput.value);
+  inputDate.setDate(inputDate.getDate() + 1); // Subtract one day
+  const deadline = formatDate(inputDate);
 
   // Create task item element
   const taskItem = document.createElement("li");
@@ -120,21 +133,21 @@ function addTask() {
   taskList.appendChild(taskItem);
 
   displayTasks();
-  //event listener after the checkbox is in the DOM
+  // Event listener after the checkbox is in the DOM
   checkbox.addEventListener("change", function () {
-    if (this.checked) {
-      taskItem.style.textDecoration = "line-through";
-    } else {
-      taskItem.style.textDecoration = "none";
-    }
+      if (this.checked) {
+          taskItem.style.textDecoration = "line-through";
+      } else {
+          taskItem.style.textDecoration = "none";
+      }
   });
 
   // Store task data in an object
   const task = {
-    description: taskDescription,
-    category: category,
-    deadline: deadline,
-    priority: priority,
+      description: taskDescription,
+      category: category,
+      deadline: deadline,
+      priority: priority,
   };
 
   // Add task to the tasks array
@@ -145,7 +158,7 @@ function addTask() {
 
   // Clear input fields
   taskInput.value = "";
-  categorySelect.value = "Category 1"; // Reset to default
+  categorySelect.value = "Work"; // Reset to default or your preferred default category
   deadlineInput.value = "";
   prioritySelect.value = "Low"; // Reset to default
 }
@@ -240,6 +253,24 @@ function displayDayAftersTasks() {
     }
   });
 }
+
+// Function to update date and day of week
+function updateDateDisplays() {
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const dayAfterTomorrow = new Date(tomorrow);
+  dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);
+
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  
+  document.getElementById('todays-date').textContent = today.toLocaleDateString('en-US', options);
+  document.getElementById('tomorrow-date').textContent = tomorrow.toLocaleDateString('en-US', options);
+  document.getElementById('day-after-date').textContent = dayAfterTomorrow.toLocaleDateString('en-US', options);
+}
+
+// Call function on page load and whenever needed
+updateDateDisplays();
 
 // Check if on "Today" page and call displayTodaysTasks() if so
 if (window.location.pathname.endsWith("today.html")) {
