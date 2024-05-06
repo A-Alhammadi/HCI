@@ -9,10 +9,10 @@
 <body>
   <header>
     <h1>Today</h1>
-    <p>
-      <span id="current-date"></span>
-    </p>
-    <button id="theme-toggle">Toggle High Contrast</button>  </header>
+    <p><span id="current-date"></span></p>
+    <button id="theme-toggle">Toggle High Contrast</button>
+    <button id="dyslexic-toggle">Toggle Dyslexic Font</button> <!-- Add this line -->
+</header>
   <main>
     <section class="task-list">
       <h2>Tasks Due Today</h2>
@@ -24,6 +24,13 @@
     <a href="index.html">Back to Main List</a> 
   </footer>
   <script src="js/script.js"></script> 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('dyslexic-toggle').addEventListener('click', function() {
+            document.body.classList.toggle('font-dyslexic');
+        });
+    });
+    </script>    
   <script>
     displayTodaysTasks(); // Add this line to call the function directly
   </script>
