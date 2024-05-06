@@ -1,4 +1,10 @@
-/* Basic styles for the to-do list (default theme) */
+
+/* At the top of your styles.css file */
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('fonts/OpenDyslexic.ttf') format('truetype');
+}
+
 body {
     font-family: sans-serif;
     line-height: 1.6;
@@ -100,6 +106,9 @@ header {
 body.high-contrast {
   background-color: #222;
   color: white;
+}
+.font-dyslexic {
+  font-family: 'OpenDyslexic', sans-serif;  /* Make sure this matches the name in @font-face */
 }
 
 body.high-contrast header {
