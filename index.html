@@ -10,15 +10,30 @@
     <header>
         <h1>My To-Do List</h1>
         <button id="theme-toggle">Toggle High Contrast</button>
-        <button id="todays-tasks-button" onclick="window.location.href='today.html'">Today's Tasks</button> 
-      </header>
+        <button id="dyslexic-toggle">Toggle Dyslexic Font</button>
 
+        <button id="todays-tasks-button" onclick="window.location.href='today.html'">
+            Today's Tasks
+            <span id="todays-date"></span>
+        </button>
+        
+        <button id="tomorrows-tasks-button" onclick="window.location.href='tomorrow.html'">
+            Tomorrow's Tasks
+            <span id="tomorrow-date"></span>
+        </button>
+        
+        <button id="day-after-tasks-button" onclick="window.location.href='dayafter.html'">
+            Day After Tomorrow's Tasks
+            <span id="day-after-date"></span>
+        </button>
+
+    </header>
+    
     <main>
         <section class="add-task">
             <h2>Add New Task</h2>
             <input type="text" id="new-task-input" placeholder="Enter task description">
-
-            <!-- Category Select -->
+            
             <label for="category-select">Category:</label>
             <select id="category-select">
                 <option value="Work">Work</option>
@@ -36,30 +51,32 @@
                 <option value="Movies/TV">Movies/TV</option>
                 <option value="Learning">Learning</option>
             </select>
-
-            <!-- Deadline Input -->
+            
             <label for="deadline-input">Deadline:</label>
             <input type="date" id="deadline-input">
-
-            <!-- Priority Select -->
+            
             <label for="priority-select">Priority:</label>
             <select id="priority-select">
                 <option value="Low">Low</option>
                 <option value="Medium">Medium</option>
                 <option value="High">High</option>
             </select>
-
+            
             <button id="add-task-button">Add Task</button>
         </section>
-
+        
         <section class="task-list">
             <h2>My Tasks</h2>
             <ul id="task-list">
-                <!-- Task items will be added dynamically here using JavaScript -->
-            </ul>
+                </ul>
         </section>
     </main>
-
+    
     <script src="js/script.js"></script>
+    <script>
+        document.getElementById('dyslexic-toggle').addEventListener('click', function() {
+            document.body.classList.toggle('font-dyslexic');
+        });
+        </script>
 </body>
 </html>
