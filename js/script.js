@@ -211,6 +211,36 @@ function displayTomorrowsTasks() {
   });
 }
 
+function displayDayAftersTasks() {
+  const dayAfterTomorrow = new Date();
+  dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2); // Add two days
+  const dayAfterTomorrowDate = formatDate(dayAfterTomorrow);
+  const dayAfterTaskList = document.getElementById("today-task-list"); // Assuming same list ID
+  dayAfterTaskList.innerHTML = ""; // Clear existing tasks
+
+  tasks.forEach(task => {
+    if (task.deadline === dayAfterTomorrowDate) {
+      // Create task item element (similar to displayTasks() but without checkbox)
+      const taskItem = document.createElement("li");
+      const label = document.createElement("label");
+      label.textContent = task.description;
+
+      // Create spans for category and priority
+      const categorySpan = document.createElement("span");
+      categorySpan.textContent = ` [${task.category}] `;
+      const prioritySpan = document.createElement("span");
+      prioritySpan.textContent = ` Priority: ${task.priority}`;
+
+      // Append elements to task item
+      taskItem.appendChild(label);
+      taskItem.appendChild(categorySpan);
+      taskItem.appendChild(prioritySpan);
+
+      dayAfterTaskList.appendChild(taskItem);
+    }
+  });
+}
+
 // Check if on "Today" page and call displayTodaysTasks() if so
 if (window.location.pathname.endsWith("today.html")) {
   displayTodaysTasks();
